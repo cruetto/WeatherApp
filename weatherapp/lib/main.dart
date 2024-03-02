@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // disable red DEBUG banner
+      
       home: FutureBuilder(
         future: _determinePosition(),
         builder: (context, snap) {
