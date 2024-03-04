@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
   
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -118,40 +118,48 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
 
               // Shapes to make beautiful back ground
-              Align(
-                  alignment: const AlignmentDirectional(3, -0.3),
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.green),
-                  )),
-              Align(
-                alignment: const AlignmentDirectional(-3, -0.3),
-                child: Container(
-                  height: 300,
-                  width: 300,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.green),
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0, -1.2),
-                child: Container(
-                  height: 300,
-                  width: 600,
-                  decoration: const BoxDecoration(color: Colors.blue ),
-                ),
-              ),
+              // Align(
+              //     alignment: const AlignmentDirectional(1.5, -0.3),
+              //     child: Container(
+              //       height: 300,
+              //       width: 300,
+              //       decoration: const BoxDecoration(
+              //           shape: BoxShape.circle, color: Colors.green),
+              //     )),
+              // Align(
+              //   alignment: const AlignmentDirectional(-1.5, -0.3),
+              //   child: Container(
+              //     height: 300,
+              //     width: 300,
+              //     decoration: const BoxDecoration(
+              //         shape: BoxShape.circle, color: Colors.green),
+              //   ),
+              // ),
+              // Align(
+              //   alignment: const AlignmentDirectional(0, -1.2),
+              //   child: Container(
+              //     height: 300,
+              //     width: 600,
+              //     decoration: const BoxDecoration(color: Colors.blue ),
+              //   ),
+              // ),
+              // Align(
+              //   alignment: const AlignmentDirectional(0, 1.2),
+              //   child: Container(
+              //     height: 300,
+              //     width: 150,
+              //     decoration: const BoxDecoration(color: Colors.yellow ),
+              //   ),
+              // ),
 
 
-              BackdropFilter(
-                // filter to make shapes blurry
-                filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.transparent),
-                ),
-              ),
+              // BackdropFilter(
+              //   // filter to make shapes blurry
+              //   filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+              //   child: Container(
+              //     decoration: const BoxDecoration(color: Colors.transparent),
+              //   ),
+              // ),
 
 
 
@@ -174,7 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //0
-                            
                             TextButton(
                               onPressed: () => {},
                               style: upperMenuStyle,
@@ -434,13 +441,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 30,
                             fontWeight: FontWeight.w300),
                         ),
-                        Text(
-                          "Sunrise/Sunset: ${displayWeather.sunrise}/${displayWeather.sunset}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w300),
-                        ),
+                        // const Text(
+                        //   "Sunrise/Sunset:"
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 30,
+                        //     fontWeight: FontWeight.w300),
+                        // ),
 
                         //UI
                       ],
