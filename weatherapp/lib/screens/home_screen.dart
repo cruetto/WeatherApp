@@ -1,12 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherapp/bloc/weather_bloc_bloc.dart';
+import 'package:weather/weather.dart';
 
 // '${state.weather.areaName}', // Area name
 // getWeatherIcon(state.weather.weatherConditionCode!), // Get Icon
@@ -18,9 +17,16 @@ import 'package:weatherapp/bloc/weather_bloc_bloc.dart';
 // "${state.weather.tempMax!.celsius!.round()}°C",
 // "${state.weather.tempMin!.celsius!.round()}°C",
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-class HomeScreen extends StatelessWidget {
-const HomeScreen({super.key});
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  
+  
 
   Widget getWeatherIcon(int code, double picScale){
     switch(code){
@@ -70,12 +76,29 @@ const HomeScreen({super.key});
           scale: picScale,
         );
     }
-
   }
 
 
+  
+
   @override
   Widget build(BuildContext context) {
+    
+
+    final ButtonStyle upperMenuStyle = TextButton.styleFrom(
+      foregroundColor: Colors.black87, 
+      minimumSize: const Size(50, 20),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
+      
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+    );
+
+    
+
+  
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -86,6 +109,7 @@ const HomeScreen({super.key});
                 .dark // Make top bar of smartphone white so you can see percentage of battery and etc.
             ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: SizedBox(
@@ -128,9 +152,15 @@ const HomeScreen({super.key});
                   decoration: const BoxDecoration(color: Colors.transparent),
                 ),
               ),
+
+
+
               BlocBuilder<WeatherBlocBloc, WeatherBlocState>(
                 builder: (context, state) {
                   if(state is WeatherBlocSuccess){
+            
+                  Weather displayWeather = state.weatherList[0];
+
                   return SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
@@ -143,113 +173,142 @@ const HomeScreen({super.key});
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //1
-                            Column(
-                              children: [
-                                const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                const SizedBox(height: 3),
-                                const Text(
-                                  "10°C",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 8), // Get Icon
-        
-                              ],
+                            //0
+                            
+                            TextButton(
+                              onPressed: () => {},
+                              style: upperMenuStyle,
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "Today",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    '${state.weatherList[0].temperature!.celsius!.round()}°C',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  getWeatherIcon(state.weatherList[0].weatherConditionCode!, 8), // Get Icon
+          
+                                ],
+                              ),
                             ),
+                            
+                            const Spacer(),
+
+                            //1
+                             TextButton(
+                              onPressed: () => {
+                                  print("Button 1 clicked"),
+                                  // setState(() {displayWeather = state.weatherList[8];}),
+                                  
+                                },
+                              style: upperMenuStyle,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    DateFormat('EEEE').format(state.weatherList[8].date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    '${state.weatherList[8].temperature!.celsius!.round()}°C',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  getWeatherIcon(state.weatherList[8].weatherConditionCode!, 8), // Get Icon
+          
+                                ],
+                              ),
+                            ),
+
                             const Spacer(),
 
                             //2
-                            Column(
-                              children: [
-                                const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                const SizedBox(height: 3),
-                                const Text(
-                                  "10°C",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 8), // Get Icon
-        
-                              ],
+                            TextButton(
+                              onPressed: () => {},
+                              style: upperMenuStyle,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    DateFormat('EEEE').format(state.weatherList[16].date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    '${state.weatherList[16].temperature!.celsius!.round()}°C',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  getWeatherIcon(state.weatherList[16].weatherConditionCode!, 8), // Get Icon
+          
+                                ],
+                              ),
                             ),
+
                             const Spacer(),
 
                             //3
-                            Column(
-                              children: [
-                                const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                const SizedBox(height: 3),
-                                const Text(
-                                  "10°C",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 8), // Get Icon
-        
-                              ],
+                           TextButton(
+                              onPressed: () => {},
+                              style: upperMenuStyle,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    DateFormat('EEEE').format(state.weatherList[24].date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    '${state.weatherList[24].temperature!.celsius!.round()}°C',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  getWeatherIcon(state.weatherList[24].weatherConditionCode!, 8), // Get Icon
+          
+                                ],
+                              ),
                             ),
-                            const Spacer(),
 
-                            //4
-                            Column(
-                              children: [
-                                const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                const SizedBox(height: 3),
-                                const Text(
-                                  "10°C",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 8), // Get Icon
-        
-                              ],
-                            ),
                             const Spacer(),
                             
-                            //5
-                            Column(
-                              children: [
-                                const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                const SizedBox(height: 3),
-                                const Text(
-                                  "10°C",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 8), // Get Icon
-        
-                              ],
+                            //4
+                            TextButton(
+                              onPressed: () => {},
+                              style: upperMenuStyle,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    DateFormat('EEEE').format(state.weatherList[32].date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    '${state.weatherList[30].temperature!.celsius!.round()}°C',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  getWeatherIcon(state.weatherList[32].weatherConditionCode!, 8), // Get Icon
+          
+                                ],
+                              ),
                             ),
                             
                           ],
@@ -260,10 +319,41 @@ const HomeScreen({super.key});
                           child: Divider(color: Colors.blueGrey),
                         ),
 
-                        Center(
+                        GlassmorphicContainer(
+                          
+                          // TODO resize
+                          width: 400,
+                          height: 300,
+                          borderRadius: 20,
+                          blur: 20,
+                          alignment: Alignment.center,
+                          border: 2,
+                          linearGradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                const Color(0xFFffffff).withOpacity(0.1),
+                                const Color(0xFFFFFFFF).withOpacity(0.05),
+                              ],
+                              stops: const [
+                                0.1,
+                                1,
+                              ]),
+                          borderGradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              const Color(0xFFffffff).withOpacity(0.5),
+                              const Color((0xFFFFFFFF)).withOpacity(0.5),
+                            ],
+                          ),
+                          child: Column(
+                            children: 
+                              [
+                                Center(
                           child:
                             Text(
-                            '${state.weather.areaName}', // Area name
+                            '${displayWeather.areaName}', // Area name
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: Colors.white,
@@ -271,36 +361,36 @@ const HomeScreen({super.key});
                                 fontWeight: FontWeight.w300),
                             ),
                         ),
-                        
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Column(
                               children: [
-                                const Text(
+                                Text(
 
-                                  "10°C",
-                                  style: TextStyle(
+                                  '${displayWeather.temperature!.celsius!.round()}°C',
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 40,
                                     fontWeight: FontWeight.w300),
                                 ),
-                                getWeatherIcon(state.weather.weatherConditionCode!, 3),
+                                getWeatherIcon(displayWeather.weatherConditionCode!, 3),
                                 
                               ],
                             ),
 
 
-                             const Column(
+                            Column(
                               children: [
                                 Text(
-                                  "7°C",
-                                  style: TextStyle(
+                                  '${displayWeather.tempFeelsLike!.celsius!.round()}°C',
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 40,
                                     fontWeight: FontWeight.w300),
                                 ),
-                                Text(
+                                const Text(
                                   "Feels like",
                                   style: TextStyle(
                                     color: Colors.white,
@@ -313,36 +403,40 @@ const HomeScreen({super.key});
 
                           ],
                         ),
+                              ]
+                          )
+                        ),
+                        
                         
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 35.0),
                           child: Divider(color: Colors.blueGrey),
                         ),
 
-                        const Text(
-                          "Humidity:",
-                          style: TextStyle(
+                        Text(
+                          "Humidity: ${displayWeather.humidity}",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 30,
                             fontWeight: FontWeight.w300),
                         ),
-                        const Text(
-                          "Wind:",
-                          style: TextStyle(
+                        Text(
+                          "Wind: ${displayWeather.windSpeed}",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 30,
                             fontWeight: FontWeight.w300),
                         ),
-                        const Text(
-                          "Pressure:",
-                          style: TextStyle(
+                        Text(
+                          "Pressure: ${displayWeather.pressure}",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 30,
                             fontWeight: FontWeight.w300),
                         ),
-                        const Text(
-                          "Sunrise/Sunset:",
-                          style: TextStyle(
+                        Text(
+                          "Sunrise/Sunset: ${displayWeather.sunrise}/${displayWeather.sunset}",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 30,
                             fontWeight: FontWeight.w300),
@@ -365,3 +459,9 @@ const HomeScreen({super.key});
     );
   }
 }
+// class HomeScreen extends StatelessWidget {
+// const HomeScreen({super.key});
+
+ 
+// }
+

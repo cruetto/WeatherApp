@@ -12,28 +12,42 @@ part 'weather_bloc_state.dart';
 
 
 class WeatherBlocBloc extends Bloc<WeatherBlocEvent, WeatherBlocState> {
+
   WeatherBlocBloc() : super(WeatherBlocInitial()) {
     on<Fetchweather>((event, emit) async {
+
       emit(WeatherBlocLoading());
       try{
         //Connect to API
         WeatherFactory wf = WeatherFactory(API_KEY, language: Language.ENGLISH);
-        
-        
+
 
         // Also here five day forecast
-        Weather weather = await wf.currentWeatherByLocation(
+        
+        List<Weather> weatherList = await wf.fiveDayForecastByLocation(
           event.position.latitude, 
           event.position.longitude,
         );
 
-        print(weather);
-        emit(WeatherBlocSuccess(weather));
+        // Weather weather = await wf.currentWeatherByLocation(
+        //   event.position.latitude, 
+        //   event.position.longitude,
+        // );
+
+        print("Length of LIST:${weatherList.length}");
+        for (var i = 0; i < weatherList.length; i++) {
+          print("${weatherList[i]}");
+        }
+        
+        
+        emit(WeatherBlocSuccess(weatherList));
       }
       catch(e)
       {
         emit(WeatherBlocFailure());
       }
+
     });
   }
 }
+
